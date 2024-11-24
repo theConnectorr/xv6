@@ -102,6 +102,7 @@ extern uint64 sys_link(void);
 extern uint64 sys_mkdir(void);
 extern uint64 sys_close(void);
 extern uint64 sys_sysinfo(void); 
+extern uint64 sys_trace(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -128,6 +129,7 @@ static uint64 (*syscalls[])(void) = {
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
 [SYS_sysinfo] sys_sysinfo,
+[SYS_trace]   sys_trace,
 };
 
 char *syscallnames[] = {
@@ -153,6 +155,7 @@ char *syscallnames[] = {
 [SYS_mkdir]   "mkdir",
 [SYS_close]   "close",
 [SYS_sysinfo] "sysinfo",
+[SYS_trace]   "trace",
 };
 
 void
@@ -171,4 +174,10 @@ syscall(void)
             p->pid, p->name, num);
     p->trapframe->a0 = -1;
   }
+  
+  // trace
+  if (p->tracemask >> num) {
+	  printf("%d: syscall %s -> %ld\n", 
+			  p->pid, syscallnames[num], p->trapframe->a0);
+  } 
 }
