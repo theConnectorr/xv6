@@ -111,7 +111,8 @@ sys_sysinfo(void)
   return 0;
 }
 
-uint
+// trace
+uint64
 sys_trace(void) {
   int tracemask;
   argint(0, &tracemask);
