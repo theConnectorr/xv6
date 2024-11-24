@@ -114,7 +114,12 @@ sys_sysinfo(void)
 uint
 sys_trace(void) {
   int tracemask;
+  
   argint(0, &tracemask);
+  if (tracemask < 0) {
+    return -1;
+  }
+
   struct proc* p = myproc();
   p->tracemask = tracemask;
   return 0;
