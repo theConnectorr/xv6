@@ -95,13 +95,13 @@ uint64
 nfree(void)
 {
   struct run *r;
-  uint64 byeCount=0;
+  uint64 byteCount=0;
   acquire(&kmem.lock);
   r=kmem.freelist;
   while(r){
     r=r->next;
-    byeCount++;
+    byteCount++;
   }
   release(&kmem.lock);
-  return byeCount*PGSIZE;
+  return byteCount*PGSIZE;
 }
