@@ -19,12 +19,15 @@ int main() {
         // parent
         close(fd_parent_child[0]);
         write(fd_parent_child[1], "ping\n", 5); // gui cho con
+
         length_parent_receive = read(fd_child_parent[0], buffer, 100);
+        
         printf("%d: received ", getpid());
         write(1, buffer, length_parent_receive);
         wait(0);
     } else if (pid_t == 0) {
         // child
+        close(fd_parent_child[1]);
         length_child_receive = read(fd_parent_child[0], buffer, 100);
         printf("%d: received ", getpid());
         write(1, buffer, length_child_receive);

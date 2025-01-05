@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
   // doc ky tu tu STDIN
   while (read(0, ch, 1) > 0)
   {
-    if (*ch == '\n')
-    { 
+    if (*ch == '\n') // dong lenh day du
+    {
       *linePtr = '\0';
       argPtr[argCount] = (char *)malloc(sizeof(char) * maxLen);
       strcpy(argPtr[argCount], lineBuf);
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
       argCount++;
       linePtr = lineBuf;
     }
-    else
+    else // hello bro
     { 
       *linePtr = *ch;
       linePtr++;
